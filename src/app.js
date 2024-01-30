@@ -1,4 +1,5 @@
 const express = require('express');
+const { userService } = require('./service');
 
 // ...
 
@@ -10,6 +11,15 @@ app.get('/', (_request, response) => {
 });
 
 app.use(express.json());
+
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  const result = await userService.login(email, password);
+  console.log(result);
+  res.json({
+    message: 'ok',
+  });
+});
 
 // ...
 // For Initial Commit
