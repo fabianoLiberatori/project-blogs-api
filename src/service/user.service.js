@@ -1,32 +1,5 @@
-const jwt = require('jsonwebtoken');
 const { User } = require('../models');
-
-const newToken = (id, name) => {
-  const token = jwt.sign({
-    id,
-    name,
-  }, process.env.JWT_SECRET);
-  return token;
-};
-
-const login = async (email, password) => {
-  const findLogin = await User.findOne({ where: { email: [email] } });
-  if (!findLogin || findLogin.password !== password) {
-    return {
-      status: 'BAD_REQUEST',
-      data: {
-        message: 'Invalid fields',
-      },
-    };
-  }
- 
-  const token = newToken(findLogin.dataValues.id, findLogin.dataValues.displayName);
-  return { status: 'OK',
-    data: {
-      token,
-    },
-  };
-};
+const { newToken } = require('../utils/tokenAuth');
 
 const createNewUser = async (newUser) => {
   const user = await User.findOne({ where: { email: newUser.email } });
@@ -38,9 +11,11 @@ const createNewUser = async (newUser) => {
       },
     };
   }
-  const userCreated = await User.create(newUser);
 
-  const token = newToken(userCreated.dataValues.id, userCreated.dataValues.displayName);
+  const { dataValues } = await User.create(newUser);
+  const payload = { id: dataValues.id, name: dataValues.displayName };
+
+  const token = newToken(payload);
   
   return {
     status: 'CREATED',
@@ -50,7 +25,15 @@ const createNewUser = async (newUser) => {
   };
 };
 
+const getAllUsers = async () => {
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
+  return {
+    status: 'OK',
+    data: users,
+  };
+};
+
 module.exports = {
-  login,
   createNewUser,
+  getAllUsers,
 };
