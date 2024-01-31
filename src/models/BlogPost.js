@@ -3,7 +3,7 @@ const {
   Model, DATE
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-const BlogPosts = sequelize.define('BlogPost', {
+const BlogPost = sequelize.define('BlogPost', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -19,18 +19,18 @@ const BlogPosts = sequelize.define('BlogPost', {
   updated: DataTypes.DATE,
 }, {
   sequelize,
-  modelName: 'BlogPosts',
+  modelName: 'BlogPost',
   tableName: 'blog_posts',
   underscored: true,
   timestamps: false,
 });
 
-BlogPosts.associate = (models) => {
-  BlogPosts.belongsTo(models.User, {
+BlogPost.associate = (model) => {
+  BlogPost.belongsTo(model.User, {
     foreignKey: 'userId',
     as: 'User'
   })
 }
 
-  return BlogPosts;
+  return BlogPost;
 };
