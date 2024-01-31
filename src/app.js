@@ -1,5 +1,6 @@
 const express = require('express');
-const { userService } = require('./service');
+// const { userService } = require('./service');
+const { userRouter } = require('./router');
 
 // ...
 
@@ -12,17 +13,9 @@ app.get('/', (_request, response) => {
 
 app.use(express.json());
 
-app.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  const result = await userService.login(email, password);
-  console.log(result);
-  res.json({
-    message: 'ok',
-  });
-});
+app.use('/', userRouter);
 
 // ...
-// For Initial Commit
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
