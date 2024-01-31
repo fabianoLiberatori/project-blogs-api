@@ -10,6 +10,7 @@ categoryRouter
     tokenAuth,
     categoryMid.createNewCategory,
     categoryController.createNewCategory,
-  );
+  )
+  .get('/categories', tokenAuth, categoryController.getAllCategory);
 
 module.exports = categoryRouter;
