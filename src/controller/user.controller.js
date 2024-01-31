@@ -8,6 +8,12 @@ const login = async (req, res) => {
   res.status(httpMap[status]).json(data);
 };
 
+const createNewUser = async (req, res) => {
+  const { status, data } = await userService.createNewUser(req.body);
+  res.status(httpMap[status]).json(data);
+};
+
 module.exports = {
   login,
+  createNewUser,
 };
