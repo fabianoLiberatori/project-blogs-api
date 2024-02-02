@@ -1,6 +1,6 @@
 const express = require('express');
 // const { userService } = require('./service');
-const { userRouter, categoryRouter } = require('./router');
+const { userRouter, categoryRouter, blogPostRouter } = require('./router');
 
 // ...
 
@@ -15,6 +15,7 @@ app.use(express.json());
 
 app.use('/', userRouter);
 app.use('/', categoryRouter);
+app.use('/', blogPostRouter);
 
 // ...
 
