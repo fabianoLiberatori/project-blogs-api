@@ -11,6 +11,7 @@ blogPostRouter
     blogPostMid.blogPostValid,
     blogPostController.createNewBlogPost,
   )
-  .get('/post', tokenAuth, blogPostController.getAllBlogPost);
+  .get('/post', tokenAuth, blogPostController.getAllBlogPost)
+  .get('/post/:id', tokenAuth, blogPostController.getByIdBlogPost);
 
 module.exports = blogPostRouter;

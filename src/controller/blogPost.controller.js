@@ -8,12 +8,19 @@ const createNewBlogPost = async (req, res) => {
   res.status(httpMap[status]).json(data);
 };
 
-const getAllBlogPost = async (_reg, res) => {
+const getAllBlogPost = async (_req, res) => {
   const { status, data } = await blogPostService.getAllBlogPost();
+  res.status(httpMap[status]).json(data);
+};
+
+const getByIdBlogPost = async (req, res) => {
+  const { id } = req.params;
+  const { status, data } = await blogPostService.getByIdBlogPost(id);
   res.status(httpMap[status]).json(data);
 };
 
 module.exports = {
   createNewBlogPost,
   getAllBlogPost,
+  getByIdBlogPost,
 };
