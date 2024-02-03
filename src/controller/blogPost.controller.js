@@ -27,9 +27,20 @@ const updatePost = async (req, res) => {
   res.status(httpMap[status]).json(data);
 };
 
+const deletePost = async (req, res) => {
+  const { userId } = res.locals;
+  const { id } = req.params;
+  const { status, data } = await blogPost2Service.deletePost(userId, id);
+  // if ('data' in result) {
+  //   return res.status(httpMap[result.status]).json(result.data);
+  // }
+  return res.status(httpMap[status]).json(data);
+};
+
 module.exports = {
   createNewBlogPost,
   getAllBlogPost,
   getByIdBlogPost,
   updatePost,
+  deletePost,
 };

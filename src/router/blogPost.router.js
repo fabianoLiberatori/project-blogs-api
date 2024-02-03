@@ -11,13 +11,14 @@ blogPostRouter
     blogPostMid.blogPostValid,
     blogPostController.createNewBlogPost,
   )
-  .get('/post', tokenAuth, blogPostController.getAllBlogPost)
-  .get('/post/:id', tokenAuth, blogPostController.getByIdBlogPost)
   .put(
     '/post/:id',
     tokenAuth,
     blogPostMid.updateBlogPostValid,
     blogPostController.updatePost,
-  );
+  )
+  .get('/post', tokenAuth, blogPostController.getAllBlogPost)
+  .get('/post/:id', tokenAuth, blogPostController.getByIdBlogPost)
+  .delete('/post/:id', tokenAuth, blogPostController.deletePost);
 
 module.exports = blogPostRouter;
