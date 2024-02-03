@@ -1,4 +1,4 @@
-const { blogPostService } = require('../service');
+const { blogPostService, blogPost2Service } = require('../service');
 const httpMap = require('../utils/httpMapper');
 
 const createNewBlogPost = async (req, res) => {
@@ -19,8 +19,17 @@ const getByIdBlogPost = async (req, res) => {
   res.status(httpMap[status]).json(data);
 };
 
+const updatePost = async (req, res) => {
+  const { userId } = res.locals;
+  const { id } = req.params;
+  const { title, content } = req.body;
+  const { status, data } = await blogPost2Service.updatePost(userId, id, title, content);
+  res.status(httpMap[status]).json(data);
+};
+
 module.exports = {
   createNewBlogPost,
   getAllBlogPost,
   getByIdBlogPost,
+  updatePost,
 };
