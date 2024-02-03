@@ -39,7 +39,7 @@ const deletePost = async (userId, id) => {
     };
   }
   await BlogPost.destroy({ where: { id } });
-  return { status: 'NO_CONTENT', data: null };
+  return { status: 'NO_CONTENT' };
 };
 
 module.exports = {
